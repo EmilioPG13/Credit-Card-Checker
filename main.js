@@ -24,9 +24,18 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 
 // Add your functions below:
+const validateCred = arr => {
+    // Create a copy of the array without altering the original one
+    const arrCopy = arr.slice(0, -1);
+    
+    // Reverse the copied array (without the last digit)
+    const reversedArr = arrCopy.reverse();
 
+    return reversedArr
+};
 
-
+const result = validateCred(valid1);
+console.log(result);
 
 
 
