@@ -26,15 +26,31 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 // Add your functions below:
 const validateCred = arr => {
     // Create a copy of the array without altering the original one
-    const arrCopy = arr.slice(0, -1);
+    const newArray = arr.slice();
+
+    //Remove the last element from the array
+    const droppedDigit = newArray.pop();
     
     // Reverse the copied array (without the last digit)
-    const reversedArr = arrCopy.reverse();
+    const reversedArr = newArray.reverse();
 
-    return reversedArr
+    // Multiply digits in odd positions by 2 and substract 9 if the result is over 9
+    const multipliedArray = reversedArr.map((digit, index) => {
+        if (index % 2 === 0 ) {
+            let doubled = digit * 2;
+            return doubled > 9 ? doubled - 9 : doubled;
+        }
+        return digit;
+    });
+
+    // Add up all the numbers in the array and the dropped digit from step 2
+    const sum = multipliedArray.reduce((acc, curr) => acc + curr, droppedDigit);
+    
+    // Check if the sum modulo 10 is 0 (valid) or not valid (invalid)
+    return sum % 10 === 0;
 };
 
-const result = validateCred(valid1);
+const result = validateCred(batch);
 console.log(result);
 
 
